@@ -35,7 +35,9 @@ public class ReviewRestController {
 	@PostMapping("/{id}/reviews")
 	public List<Review> postReviewForProduct(@RequestBody Review rv,@PathVariable("id") int id)
 	{
+		rv.setProdId(ps.findById(id));
 		rvs.save(rv);
 		return rvs.getReviewByProdId(id);
 	}
+
 }

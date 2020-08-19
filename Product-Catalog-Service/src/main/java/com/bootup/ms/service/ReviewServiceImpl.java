@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.bootup.ms.dao.ProductDao;
 import com.bootup.ms.dao.ReviewDao;
+import com.bootup.ms.entity.Product;
 import com.bootup.ms.entity.Review;
 
 @Service
@@ -27,15 +28,16 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public List<Review> getReviewByProdId(int pid) {
-		List<Review> rv = rvDao.findByProdId(pid);
-		return rv.subList(0, 1);
+		List<Review> rv = rvDao.findByProdId(prodDao.findById(pid));
+		return rv;
 	}
 
 
 	@Override
-	public List<Review> findByProdId(int prodId) {
+	public List<Review> findByProdId(Product prodId) {
 		// TODO Auto-generated method stub
 		return rvDao.findByProdId(prodId);
 	}
+
 
 }
