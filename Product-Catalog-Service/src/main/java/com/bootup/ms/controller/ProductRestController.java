@@ -32,6 +32,7 @@ public class ProductRestController {
 	public Product getProductById(@PathVariable("id") int id)
 	{
 		return ps.findById(id);
+		
 	}
 	
 	@GetMapping("/products/byName/{wildcardString}")

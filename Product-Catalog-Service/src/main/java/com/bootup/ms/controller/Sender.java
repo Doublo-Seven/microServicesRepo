@@ -9,16 +9,20 @@ import org.springframework.stereotype.Controller;
 @Controller
 public class Sender {
 	
-	@Autowired
 	RabbitMessagingTemplate rabbitMsgTemplate;
+	
+	@Autowired
+	Sender(RabbitMessagingTemplate rabbitMsgTemplate) {
+		this.rabbitMsgTemplate = rabbitMsgTemplate;
+	}
 	
 	@Bean
 	Queue queue() {
 		return new Queue("PriceQ",false);
 	}
 	
-	public void send(Object price) {
-		rabbitMsgTemplate.convertAndSend(price);
+	public void send(Object idAndPrice) {
+		rabbitMsgTemplate.convertAndSend("PriceQ",idAndPrice);
 	}
 
 }

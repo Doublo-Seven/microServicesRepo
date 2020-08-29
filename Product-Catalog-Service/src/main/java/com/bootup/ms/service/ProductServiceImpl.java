@@ -1,10 +1,13 @@
 package com.bootup.ms.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bootup.ms.controller.Sender;
 import com.bootup.ms.dao.ProductDao;
 import com.bootup.ms.entity.Product;
 
@@ -14,6 +17,9 @@ public class ProductServiceImpl implements ProductService {
 	@Autowired
 	ProductDao prodDao;
 	
+	@Autowired
+	Sender sender;
+	
 	@Override
 	public List<Product> findAll() {
 		return prodDao.findAll();
@@ -21,7 +27,14 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public Product findById(int id) {
-		return prodDao.findById(id);
+		
+		Product p1 = prodDao.findById(id);
+		Map<String,Object> idAndPrice = new HashMap<>();
+		idAndPrice.put("PRODUCT_ID", p1.getProdId());
+		idAndPrice.put("PRICE",p1.getPrice());
+		
+		sender.send(idAndPrice);
+		return p1;
 	}
 
 	@Override

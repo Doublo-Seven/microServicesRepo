@@ -22,4 +22,6 @@ public class PriceRestController {
 		
 		return ps.findByProdId(prodId).getPrice();
 	}
+	
+
 }
